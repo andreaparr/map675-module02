@@ -10,5 +10,6 @@ ogr2ogr -f "GeoJSON" center-lines.json Street_Centerline.shp -sql "select speed_
 
 The four shape files I have downloaded and converted are:
 -center-lines.json
-fires-report-2012.json
-neighborhoods.json
+-fires-report-2012.json
+-neighborhoods.json
+-growth-centers.json
