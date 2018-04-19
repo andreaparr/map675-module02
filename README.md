@@ -13,3 +13,8 @@ The four shape files I have downloaded and converted are:
 * fires-report-2012.json
 * neighborhoods.json
 * growth-centers.json
+
+My next step was to create and _*index.html*_ file.
+```echo "<doctype html>" > index.html
+git add index.html
+```
