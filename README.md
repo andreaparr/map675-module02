@@ -15,7 +15,9 @@ The four shape files I have downloaded and converted are:
 * growth-centers.json
 
 My next step was to create and _*index.html*_ file.
-```bash
-echo "<doctype html>" > index.html
+
+```echo "<!doctype html>" > index.html
 git add index.html
 ```
+
+I have created my _index.html_ by adding the basic Leaflet stylesheet and javascript used in Module01.  I used Google Maps to find Minneapolis and grabbed the lat/long from the URL```https://www.google.com/maps/place/Minneapolis,+MN/@44.970797,-93.331518,12z/data=!3m1!4b1!4m5!3m4!1s0x52b333909377bbbd:0x939fc9842f7aee07!8m2!3d44.977753!4d-93.2650108``` to populate the `options`. 
