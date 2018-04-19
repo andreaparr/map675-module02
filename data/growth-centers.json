@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "Growth_Centers",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "FID": 1, "NAME": "Downtown office core" }, "geometry": { "type": "Point", "coordinates": [ -93.268648518580534, 44.97669022485556 ] } },
+{ "type": "Feature", "properties": { "FID": 2, "NAME": "University of Minnesota" }, "geometry": { "type": "Point", "coordinates": [ -93.229277154934323, 44.975596829296798 ] } },
+{ "type": "Feature", "properties": { "FID": 3, "NAME": "Wells Fargo\/Hospitals" }, "geometry": { "type": "Point", "coordinates": [ -93.265613448159996, 44.954699886465121 ] } },
+{ "type": "Feature", "properties": { "FID": 4, "NAME": "Bassett Creek Valley" }, "geometry": { "type": "Point", "coordinates": [ -93.29541468148193, 44.976102809180034 ] } }
+]
+}
