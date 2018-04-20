@@ -32,6 +32,4 @@ Changed my layers to the following
 * add Water.json
 * Neighborhoods goes unchanged
 
-Still need to find a better TileLayer
-
->>>>>>> module2-Ian
+Replaced Tile Layer.
