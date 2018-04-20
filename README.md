@@ -26,7 +26,7 @@ After adding the `L.GeoJSON` with the `drawMap` function, I realized I need to g
 
 Changed my layers to the following 
 * County Boundaries of only surrounding counties
-* fire-stations within limits
+* fire-stations within ```limits  ogr2ogr -f "GeoJSON" -t_srs EPSG:4326 cb.json MNCounties_MNDOT.shp -sql "select * from MNCounties_MNDOT where COUNTY_NAM in ('Anoka', 'Dakota', 'Hennepin', 'Ramsey', 'Washington') "```
 * add Water.json
 * Neighborhoods goes unchanged
 
