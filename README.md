@@ -1,6 +1,5 @@
 # map675-module02
 Minneapolis, apparently.
-<<<<<<< HEAD
 =======
 
 Since we decided to go with Minneapolis, I just did a Google search for _Minneapolis GIS Data_.  Not too surprisingly, because I remember from my days at Transportation that Minnesota actually has that a law requiring all *Spatial Data*, at least at the government level, will be free and open.  The first item that caught my eye was _Neighborhoods_ data. 
