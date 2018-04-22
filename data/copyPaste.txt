@@ -1,0 +1,15 @@
+        onEachFeature: function (feature, layer) {
+                            var tooltip = features.properties.NAME;
+                           layer.bindTooltip(tooltip, {
+                             sticky: ture,
+                               className: 'tooltip'
+                          });
+                            layer.on('mouseover', function (e) {
+                             ths.setStyle({
+                                fillOpacity: .1
+                           });
+                         });
+                            layer.on('mouseout', function (e) {
+                                this.setStyle(fireStationsOptions);
+                           });
+                       });
