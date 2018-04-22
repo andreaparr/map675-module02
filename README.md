@@ -45,4 +45,8 @@ AP to do:
 * set zoom bounds
 * work on interactive features (tooltip, etc.)
 
+AP Edits2
+* Added parks layer
+* Set initial bounds (still working on this)
+
 
