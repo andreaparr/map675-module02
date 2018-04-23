@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+
+<head>
+
+    <title>Minneapolis mashup map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+
+    <style>
+        body,
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0;
+            background: rgba(0, 0, 0, .75);
+        }
+        .tooltip {
+          color: white;
+          background: #299397;
+          border: 0;
+          font-size: 1.3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        var options = {
+            center: [44.97, -93.27],
+            zoom: 12,
+            minZoom: 9,
+            maxZoom: 16,
+            maxBounds: [
+                [45.09, -93.18],
+                [44.88, -93.36]
+            ]
+        };
+
+        var map = L.map('map', options);
+
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+        }).addTo(map);
+
+        $.when(
+            $.getJSON('data/neighborhoods.json'),
+            $.getJSON('data/fire-stations.json'),
+            $.getJSON('data/water.json'),
+            $.getJSON('data/cb.json'),
+            $.getJSON('data/transit.json'),
+            $.getJSON('data/parks.json')
+        ).done(function (neighborhoodsData, fireStationsData, waterData, cbData, transitData, parksData) {
+            
+            L.geoJson(cbData, {
+                style: cbOptions
+            }).addTo(map);
+
+            L.geoJson(transitData, {
+                 // style each feature
+            style: function(feature) {
+                // shortcut to variable
+                var type = feature.properties.routetype;
+
+                // assign options
+                return type === 'Urb Loc' ? urbtranOptions :
+                       type === 'Express' ? expressOptions :
+                       type === 'Sub Loc' ? subtranOptions: otherRoutes;
+                }
+            }).addTo(map);
+            L.geoJson(neighborhoodsData, {
+                style: neighborhoodsOptions,
+                    onEachFeature: function(feature, layer) {
+                    // shortut to variable
+                    var tooltip = feature.properties.BDNAME;
+                    // bind the tooltip to the layer
+                    layer.bindTooltip(tooltip, {
+                        sticky: true,
+                        className: 'tooltip'
+                    });
+                    // visual affordance on mouseover
+                    layer.on('mouseover', function(e) {
+                        this.setStyle({
+                            fillOpacity: .1
+                        });
+                    });
+                    // use existing option to reset the styles on mouseout
+                    layer.on('mouseout', function(e) {
+                        this.setStyle(neighborhoodsOptions);
+                    });
+                }
+            }).addTo(map);
+
+            L.geoJson(parksData, {
+                style: parksOptions
+            }).addTo(map);
+
+            L.geoJson(fireStationsData, {
+                    pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng);
+                    },
+                    style: fireStationsOptions,
+                    onEachFeature: function(feature, layer) {
+                    // shortut to variable
+                    var tooltip = feature.properties.PHONE;
+                    // bind the tooltip to the layer
+                    layer.bindTooltip(tooltip, {
+                        sticky: true,
+                        className: 'tooltip'
+                    });
+                    // visual affordance on mouseover
+                    layer.on('mouseover', function(e) {
+                        this.setStyle({
+                        fillOpacity: .1
+                        });
+                    });
+                    // use existing option to reset the styles on mouseout
+                    layer.on('mouseout', function(e) {
+                        this.setStyle(fireStationsOptions);
+                    });
+                    }
+                }).addTo(map);
+
+            L.geoJson(waterData, {
+                style: waterOptions,
+                onEachFeature: function(feature, layer) {
+                // shortut to variable
+                var tooltip = feature.properties.NAME;
+                // bind the tooltip to the layer
+                layer.bindTooltip(tooltip, {
+                    sticky: true,
+                    className: 'tooltip'
+                });
+                // visual affordance on mouseover
+                layer.on('mouseover', function(e) {
+                    this.setStyle({
+                    fillOpacity: .1
+                    });
+                });
+                // use existing option to reset the styles on mouseout
+                layer.on('mouseout', function(e) {
+                    this.setStyle(waterOptions);
+                });
+                }
+            }).addTo(map);
+        });
+
+            var neighborhoodsOptions = {
+                fillOpacity: .3,
+                fillColor: '#7c7c7c',
+                color: '#7c7c7c',
+                weight: .5,
+                opacity: .5
+            }
+
+            var fireStationsOptions = {
+                radius: 4,
+                fillColor: '#c10101',
+                color: '#c10101',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 1
+            }
+
+            var waterOptions = {
+                color: '#0040ff',
+                opacity: .5,
+                weight: .5
+            }
+
+            var cbOptions = {
+                fillColor:  '#868679',
+                color: '#ffffff',
+                weight: 2,
+                opacity: .5
+            }
+            
+            var urbtranOptions = {
+                color: '#e56706',
+                weight: .75
+            }
+
+            var expressOptions = {
+                color: '#e5d139',
+                weight: 1
+            }
+
+            var subtranOptions = {
+                color: '#722a96',
+                weight: 1
+            }
+
+            var otherRoutes = {
+                color: '#e56706',
+                weight: .2
+            }
+
+            var parksOptions = {
+                color: '#3d8724',
+                opacity: .5,
+                weight: .75
+            }
+
+        map.createPane('labels');
+        map.getPane('labels').style.zIndex = 650;
+        map.getPane('labels').style.pointerEvents = 'none';
+
+    </script>
+</body>
+</html>
