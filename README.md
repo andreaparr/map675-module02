@@ -20,3 +20,21 @@ Changed my layers to the following
 * transit-routes (bus routes) added by AP
 
 Replaced Tile Layer.
+
+AP Edits
+* Removed the drawMap function because I thought it was redundant as the data is drawn on the GeoJSON Leaflet layers. It all still works. Kind of wish I hadn't done that though. 
+* Added transit.json layer that includes bus routes. 
+Need to deal with the transit layer that has info outside Minneapolis city limits - might restrict zoom bounds
+* Simplified tile layer - still looking for a different labels only layer
+* Tried to add tool tip to neighborhoods layer, but have not gotten that to work yet
+
+AP to do:
+* work on map styling
+* set zoom bounds
+* work on interactive features (tooltip, etc.)
+
+AP Edits2
+* Added parks layer
+* Set initial bounds (still working on this)
+
+
